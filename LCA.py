@@ -1,5 +1,10 @@
 class LCADoubling:
-
+    """
+    I used these sites as reference
+    - https://ikatakos.com/pot/programming_algorithm/graph_theory/lowest_common_ancestor
+    - https://algo-logic.info/lca/
+    
+    """
     def __init__(self, graph, root=0, with_weight=False):
         n = len(graph)
         self.depths = [-1] * n

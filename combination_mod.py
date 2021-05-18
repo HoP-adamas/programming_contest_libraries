@@ -45,3 +45,8 @@ class Combination:
 			return 0
 		return self.fac[n] * self.facinv[r] % self.mod * self.facinv[n-r] % self.mod
 
+	def perm(self, n, r):
+		if not 0 <= r <= n:
+			return 0
+		return self.fac[n] * self.facinv[n-r] % self.mod
+

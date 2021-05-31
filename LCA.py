@@ -28,9 +28,9 @@ class LCADoubling:
             self.depths[v] = dep
             self.distances[v] = dist
             if with_weight:
-                q.extend((u, v dep + 1, dist + w) for u, w in graph[v] if u != p)
+                q.extend((u, v, dep + 1, dist + w) for u, w in graph[v] if u != p)
             else:
-                q.extend((u, v dep + 1, dist + 1) for u in graph[v] if u != p)
+                q.extend((u, v, dep + 1, dist + 1) for u in graph[v] if u != p)
         return direct_ancestors
 
     def get_lca(self, u, v):

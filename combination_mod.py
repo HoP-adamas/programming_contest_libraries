@@ -50,3 +50,8 @@ class Combination:
 			return 0
 		return self.fac[n] * self.facinv[n-r] % self.mod
 
+	def H(self, n ,r):
+		if (n == 0 and r > 0) or r < 0:
+			return 0
+		return self.fac[n + r - 1] * self.facinv[r] % self.mod * self.facinv[n - 1] %self.mod
+

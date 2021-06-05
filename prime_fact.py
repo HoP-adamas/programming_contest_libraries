@@ -25,6 +25,17 @@ def prime_fact(n):
     
     return factor
 
+def divisor(n):
+    ret = []
+    for i in range(1,int(math.sqrt(n))+1):
+        if n % i == 0:
+            ret.append(i)
+            if i * i != n:
+                ret.append(n // i)
+
+    ret.sort()
+    return ret
+
 def divisor_num(n):
     factor = prime_fact(n)
     ret = 1

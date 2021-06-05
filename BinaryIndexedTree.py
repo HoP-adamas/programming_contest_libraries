@@ -14,7 +14,7 @@ class BIT:
         idx = i
         while idx > 0:
             res += self.bit[idx]
-            idx += idx & (-idx)
+            idx -= idx & (-idx)
         return res
 
 class BIT2D:
@@ -39,8 +39,8 @@ class BIT2D:
         while idx_h < self.height:
             while idx_w < self.width:
                 res += self.bit[idx_h][idx_w]
-                idx_w += idx_w & (-idx_w)
-            idx_h += idx_h & (-idx_h)
+                idx_w -= idx_w & (-idx_w)
+            idx_h -= idx_h & (-idx_h)
         
         return res
 

@@ -91,8 +91,7 @@ class Dijkstra:
     self.prev = [-1]*self.vertex_num
 
     priority_queue = []
-    dis[start] = 0
-    heapq.heappush(priority_queue, (dis[start], start))
+    heapq.heappush(priority_queue, (0, start))
 
     while priority_queue:
       v_dis, v = heapq.heappop(priority_queue)
@@ -100,8 +99,8 @@ class Dijkstra:
       if dis[v] < v_dis:
         continue
       for e in self.graph[v]:
-        if dis[e[0]] > dis[v] + e[1]:
-          dis[e[0]] = dis[v] + e[1]
+        if dis[e[0]] > v_dis + e[1]:
+          dis[e[0]] = v_dis + e[1]
           self.prev[e[0]] = v
           heapq.heappush(priority_queue, (dis[e[0]], e[0]))
 

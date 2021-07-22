@@ -1,37 +1,3 @@
-from collections import deque
-
-n,m = map(int,input().split())
-INF = 10**9
-V = [INF]*n
-sign = [-1]*n
-sign[0] = 0
-G = [[] for i in range(n)]
-for _ in range(m):
-  a,b=map(int,input().split())
-  G[a-1].append(b-1)
-  G[b-1].append(a-1)
-  
-V[0] = 0
-queue = deque([0])
-
-# ダイクストラ(bfs)
-while queue:
-  v = queue.popleft()
-  next_v = G[v]
-  for nei in next_v:
-    if V[nei] > V[v]+1:
-      V[nei] = V[v]+1
-      sign[nei] = v
-      queue.append(nei)
-if INF in V:
-  print('No')
-else:
-  print('Yes')
-  for s in sign[1:]:
-    print(s+1)
-
-
-
 class BellmanFord:
   '''
   ベルマンフォード法のクラス
@@ -80,10 +46,11 @@ class Dijkstra:
 
   shortest_pathは最短経路とstartからの最短距離を配列として返す。
   '''
-  def __init__(self, graph):
+  def __init__(self, graph, with_cost=True):
     self.graph = graph
     self.vertex_num = len(graph)
     self.prev = None
+    self.with_cost = with_cost
 
   def shortest_path(self, start):
     INF = 10**18
@@ -99,10 +66,16 @@ class Dijkstra:
       if dis[v] < v_dis:
         continue
       for e in self.graph[v]:
-        if dis[e[0]] > v_dis + e[1]:
-          dis[e[0]] = v_dis + e[1]
-          self.prev[e[0]] = v
-          heapq.heappush(priority_queue, (dis[e[0]], e[0]))
+        if self.with_cost:
+          if dis[e[0]] > v_dis + e[1]:
+            dis[e[0]] = v_dis + e[1]
+            self.prev[e[0]] = v
+            heapq.heappush(priority_queue, (dis[e[0]], e[0]))
+        else:
+          if dis[e] > v_dis + 1:
+            dis[e] = v_dis + 1
+            self.prev[e] = v
+            heapq.heappush(priority_queue, (dis[e], e))
 
     return dis
 

@@ -1,9 +1,11 @@
 import math
+from collections import defaultdict
 '''
 前処理ありの素因数分解
+init; O(NloglogN)
 O(logN)
 '''
-def prime_fact(n):
+def prime_fact_spf(n):
     spf = [0]*(n+1)
     # calc spf
     for i in range(n+1):
@@ -37,9 +39,29 @@ def divisor(n):
     return ret
 
 def divisor_num(n):
-    factor = prime_fact(n)
+    factor = prime_fact_spf(n)
     ret = 1
     for key, item in factor.items():
         ret *= item + 1
     return ret
 
+
+def prime_fact(n):
+    '''
+    O(n**(1/2))
+    '''
+    ret = DefaultDict(int)
+    i = 2
+    while i**2 <= n:
+        if n % i != 0:
+            i+=1
+            continue
+        tmp = 0
+        while n % i == 0:
+            tmp += 1
+            n //= i
+        ret[i] = tmp
+        i += 1
+    if n != 1:
+        ret[n] = 1
+    return ret

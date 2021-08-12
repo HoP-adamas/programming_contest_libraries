@@ -50,7 +50,7 @@ def prime_fact(n):
     '''
     O(n**(1/2))
     '''
-    ret = DefaultDict(int)
+    ret = defaultdict(int)
     i = 2
     while i**2 <= n:
         if n % i != 0:

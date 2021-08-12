@@ -5,27 +5,27 @@ from collections import defaultdict
 init; O(NloglogN)
 O(logN)
 '''
-def prime_fact_spf(n):
-    spf = [0]*(n+1)
-    # calc spf
-    for i in range(n+1):
-        spf[i] = i
-    for i in range(2,int(math.sqrt(n))+1):
-        if spf[i] == i:
-            for j  in range(i**2, n+1, i):
-                if spf[j] == j:
-                    spf[j] = i
+class PrimeFactSPF():
 
-    # do prime factrization
-    factor = {}
-    while (n != 1):
-        try:
-            factor[spf[n]] += 1
-        except:
-            factor[spf[n]] = 1
-        n //= spf[n]
-    
-    return factor
+    def __init__(self, n):
+        self.n = n
+        self.spf = [0] * (self.n + 1)
+        for i in range(self.n+1):
+            self.spf[i] = i
+
+        for i in range(2, int(math.sqrt(self.n)) + 1):
+            if self.spf[i] == i:
+                for j in range(i**2, n + 1, i):
+                    if self.spf[j] == j:
+                        self.spf[j] = i
+
+
+    def get_prime_factor(self, n):
+        res = defaultdict(int)
+        while n != 1:
+            res[self.spf[n]] += 1
+            n //= self.spf[n]
+        return res
 
 def divisor(n):
     ret = []
@@ -39,7 +39,7 @@ def divisor(n):
     return ret
 
 def divisor_num(n):
-    factor = prime_fact_spf(n)
+    factor = prime_fact(n)
     ret = 1
     for key, item in factor.items():
         ret *= item + 1

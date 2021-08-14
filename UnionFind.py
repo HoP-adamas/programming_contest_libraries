@@ -2,7 +2,7 @@
 
 class UnionFind:
     def __init__(self, n):
-        # 負  : 根であることを示す。絶対値はランクを示す
+        # 負  : 根であることを示す。絶対値は木の要素数
         # 非負: 根でないことを示す。値は親を示す
         self.table = [-1] * n
  
@@ -24,15 +24,13 @@ class UnionFind:
         r2 = self._root(y)
         if r1 == r2:
             return
-        # ランクの取得
-        d1 = self.table[r1]
-        d2 = self.table[r2]
-        if d1 <= d2:
-            self.table[r2] = r1
-            if d1 == d2:
-                self.table[r1] -= 1
-        else:
-            self.table[r1] = r2
+        if self.table[r1] > self.table[r2]:
+            r1, r2  = r2, r1
+        self.table[r1] += self.table[r2]
+        self.table[r2] = r1
+      
+    def size(self, x):
+      return -self.table[self._root(x)]
 
 def get_uft_size(uft):
   '''

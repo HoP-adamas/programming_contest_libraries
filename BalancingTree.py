@@ -1,4 +1,4 @@
-class BlancingTree:
+class BalancingTree:
     """
     回転を使わない平衡2分木
     https://qiita.com/Kiri8128/items/6256f8559f0026485d90

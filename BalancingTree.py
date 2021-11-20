@@ -36,7 +36,7 @@ class BalancingTree:
                     break
     def leftmost(self, nd):
         if nd.left:
-            return self.reftmost(nd.left)
+            return self.leftmost(nd.left)
         return nd
     def rightmost(self, nd):
         if nd.right:
@@ -131,15 +131,6 @@ class BalancingTree:
 
     def __contains__(self, v: int) -> bool:
         return self.upper_bound(v - 1) == v
-
-
-        
-
-
-
-
-
-
     class node:
         def __init__(self, v, p):
             self.value = v

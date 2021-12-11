@@ -4,14 +4,14 @@ class BIT:
         self.bit = [0]*(n+1) # 1-indexed
 
     def add(self, i, x):
-        idx = i
+        idx = i + 1
         while idx < self.num_element:
             self.bit[idx] += x
             idx += idx & (-idx)
     
     def sum(self,i):
         res = 0
-        idx = i
+        idx = i + 1
         while idx > 0:
             res += self.bit[idx]
             idx -= idx & (-idx)
@@ -24,8 +24,8 @@ class BIT2D:
         self.bit = [[0]*self.width for _ in range(self.height)]
 
     def add(self, h, w, x):
-        idx_h = h
-        idx_w = w
+        idx_h = h + 1
+        idx_w = w + 1
         while idx_h < self.height:
             while idx_w < self.width:
                 self.bit[idx_h][idx_w] += x
@@ -34,8 +34,8 @@ class BIT2D:
     
     def sum(self, h, w):
         res = 0
-        idx_h = h
-        idx_w = w
+        idx_h = h + 1
+        idx_w = w + 1
         while idx_h < self.height:
             while idx_w < self.width:
                 res += self.bit[idx_h][idx_w]

@@ -4,6 +4,7 @@ class UnionFind:
 	def __init__(self, n):
 		# 負  : 根であることを示す。絶対値は木の要素数
 		# 非負: 根でないことを示す。値は親を示す
+		self.n = n
 		self.table = [-1] * n
  
 	def _root(self, x):
@@ -33,9 +34,9 @@ class UnionFind:
 		return -self.table[self._root(x)]
 
 	def groups(self):
-		G = [[] for _ in range(len(self.n))]
+		G = [[] for _ in range(self.n)]
 		for i in range(self.n):
-			G[self.root(i)].append(i)
+			G[self._root(i)].append(i)
 		return [g for g in G if g]
 
 def get_uft_size(uft):

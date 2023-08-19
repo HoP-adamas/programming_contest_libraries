@@ -40,25 +40,25 @@ class UnionFind:
 		return [g for g in G if g]
 
 def get_uft_size(uft):
-  '''
-  Union-Find tree の各木のノード数を取得する。
-  返り値はdictでkeyは各木のルート、valueはそのルートの木のノード数
-  '''
-  counter = {}
-  for i in range(len(uft.table)):
-    if uft.table[i] < 0:
-      try:
-        counter[i] += 1
-      except:
-        counter[i] = 1
+	'''
+	Union-Find tree の各木のノード数を取得する。
+	返り値はdictでkeyは各木のルート、valueはそのルートの木のノード数
+	'''
+	counter = {}
+	for i in range(len(uft.table)):
+		if uft.table[i] < 0:
+			try:
+				counter[i] += 1
+			except:
+				counter[i] = 1
 
-    else:
-      try:
-        counter[uft._root(i)] += 1
-      except:
-        counter[uft._root(i)] = 1
+		else:
+			try:
+				counter[uft._root(i)] += 1
+			except:
+				counter[uft._root(i)] = 1
 
-  return counter
+	return counter
 
 
 class PotentialUnionFindTree:

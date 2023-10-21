@@ -39,56 +39,56 @@ class BellmanFord:
 import heapq
 
 class Dijkstra:
+    '''
+    ダイクストラ法のクラス
+    グラフは連結リストとして管理する。各辺は(to, cost)というタプルにしておく。
+    初期化のときに連結リストを渡す。
+
+    shortest_pathは最短経路とstartからの最短距離を配列として返す。
 	'''
-	ダイクストラ法のクラス
-	グラフは連結リストとして管理する。各辺は(to, cost)というタプルにしておく。
-	初期化のときに連結リストを渡す。
+    def __init__(self, graph, with_cost=True):
+        self.graph = graph
+        self.vertex_num = len(graph)
+        self.prev = None
+        self.with_cost = with_cost
 
-	shortest_pathは最短経路とstartからの最短距離を配列として返す。
-	'''
-	def __init__(self, graph, with_cost=True):
-		self.graph = graph
-		self.vertex_num = len(graph)
-		self.prev = None
-		self.with_cost = with_cost
+    def shortest_path(self, start): 
+        INF = 10**18
+        dis = [INF]*self.vertex_num
+        self.prev = [-1]*self.vertex_num
 
-	def shortest_path(self, start): 
-		INF = 10**18
-		dis = [INF]*self.vertex_num
-		self.prev = [-1]*self.vertex_num
+        priority_queue = []
+        heapq.heappush(priority_queue, (0, start))
+        while priority_queue:
+            v_dis, v = heapq.heappop(priority_queue)
 
-		priority_queue = []
-		heapq.heappush(priority_queue, (0, start))
-		while priority_queue:
-			v_dis, v = heapq.heappop(priority_queue)
+            if dis[v] < v_dis:
+                continue
+            for e in self.graph[v]:
+                if self.with_cost:
+                    if dis[e[0]] > v_dis + e[1]:
+                        dis[e[0]] = v_dis + e[1]
+                        self.prev[e[0]] = v
+                        heapq.heappush(priority_queue, (dis[e[0]], e[0]))
+                else:
+                    if dis[e] > v_dis + 1:
+                        dis[e] = v_dis + 1
+                        self.prev[e] = v
+                        heapq.heappush(priority_queue, (dis[e], e))
+    
+        return dis
 
-			if dis[v] < v_dis:
-				continue
-			for e in self.graph[v]:
-				if self.with_cost:
-					if dis[e[0]] > v_dis + e[1]:
-						dis[e[0]] = v_dis + e[1]
-						self.prev[e[0]] = v
-						heapq.heappush(priority_queue, (dis[e[0]], e[0]))
-				else:
-					if dis[e] > v_dis + 1:
-						dis[e] = v_dis + 1
-						self.prev[e] = v
-						heapq.heappush(priority_queue, (dis[e], e))
-	
-		return dis
+    def get_shotest_path(self, to):
+        if self.prev == None:
+            raise Exception('The shortest path does not be calculated. Please call the method "shortest_path(start_vertex_index)"')
+        path = []
+        cur = to
+        while cur != -1:
+            path.append(cur)
+            cur = self.prev[cur]
+        path = path[::-1]
 
-	def get_shotest_path(self, to):
-		if self.prev == None:
-			raise Exception('The shortest path does not be calculated. Please call the method "shortest_path(start_vertex_index)"')
-		path = []
-		cur = to
-		while cur != -1:
-			path.append(cur)
-			cur = self.prev[cur]
-		path = path[::-1]
-
-		return path
+        return path
 
 	# ================================================================================================================================
 
